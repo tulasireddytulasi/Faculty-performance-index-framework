@@ -1,0 +1,45 @@
+<?php
+//insert.php
+$connect = mysqli_connect("localhost", "root", "", "bitsvizag");
+
+
+
+
+
+
+if(isset($_Get["cid"]))
+{
+   $cid = $_GET['cid'];
+  $score = "10";
+
+
+ $query = '';
+
+
+  $fids;
+  $score1 = mysqli_real_escape_string($connect, $score);
+  
+  if($score1 != '')
+  {
+   $query .= '
+  update course set score = '$score1' where cid='$cid' ;
+   ';
+  }
+ 
+ if($query != '')
+ {
+  if(mysqli_multi_query($connect, $query))
+  {
+   echo 'Item Data Inserted';
+  }
+  else
+  {
+   echo 'Error';
+  }
+ }
+ else
+ {
+  echo 'All Fields are Required';
+ }
+}
+?>

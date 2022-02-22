@@ -1,0 +1,84 @@
+<?php
+include 'fheader.php';
+ ?>
+<!-- ===================================================================================== -->
+<div id="page-wrapper">
+        <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 align="center" class="page-header">List Of Corses Under Taken</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+         <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           List Of Corses Under Taken
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="ex3">
+                        <div class="panel-body">
+<!-- ============================================================================ --> 
+
+<?php
+//fetch.php    ORDER BY item_id DESC";
+$connect = mysqli_connect("localhost", "root", "", "bitsvizag");
+$output = '';
+$query = "SELECT * FROM course WHERE fid = '" . $_SESSION['id'] . "' ";
+$result = mysqli_query($connect, $query);
+$output = '
+<br />
+
+<table class="table table-bordered table-striped">
+ <tr> <th width="3%"></th>
+      <th width="20%">Courses Under Taken</th>
+      <th width="23%">Affliation</th>
+      <th width="12%">From Date</th>
+      <th width="12%">To Date</th>
+     <th width="3%"></th>
+ </tr>
+';
+while($row = mysqli_fetch_array($result))
+{
+ $output .= '
+ <tr>
+ <td>'.$row["cid"].'</td>
+  <td>'.$row["name"].'</td>
+  <td>'.$row["org"].'</td>
+  <td>'.$row["fromdate"].'</td>
+  <td>'.$row["todate"].'</td>
+ 
+ 
+  <td><a href="opencourse.php?cid=' . $row["cid"] . '">Edit</a> &nbsp; <a href="deletecourse.php?cid=' . $row["cid"] . '">Delete</a></td>
+ </tr>
+ ';
+}
+$output .= '</table>';
+echo $output;
+?>
+
+
+
+
+
+
+
+
+
+   <!-- ============================================================================ -->                                              
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div> 
+            </div>
+           
+
+
+ <!-- ===================================================================================== -->          
+ <?php
+include 'footer.php';
+ ?>

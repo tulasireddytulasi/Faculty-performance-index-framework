@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<input type="text" id="user_id" />
+<input type="button" id="getUser" value="Get Details"/>
+<div class="user-content" style="display: none;">
+    <h4>User Details</h4>
+    <p>Id: <span id="id"></span></p>
+    <p>Full Name: <span id="fullname"></span></p>
+    <p>User Name: <span id="username"></span></p>
+    <p>Password: <span id="password"></span></p>
+    <p>Course: <span id="course"></span></p>
+    <p>Branch: <span id="branch"></span></p>
+    <p>Role: <span id="role"></span></p>
+   
+</div>
+<div>
+	
+	<table class="table table-bordered table-striped" id = "employee_table">
+		<tr>
+			<th>Id</th>
+			<th>Full Name</th>
+			<th>User Name</th>
+			<th>Password</th>
+			<th>Course</th>
+			<th>Branch</th>
+			<th>Role</th>
+		</tr>
+		
+	</table>
+</div>
+
+<script>
+$(document).ready(function(){
+ //   $('#getUser').on('click',function(){
+        var user_id = $('#user_id').val();
+        $.ajax({
+            type:'POST',
+            url:'listfacultyjson.php',
+              dataType: "json",
+            // data:{user_id:user_id},
+            success:function(data){
+
+            	var employee_data = '';
+
+            	$.each(data,function(key,value){
+
+            		employee_data +='<tr>';
+            		employee_data +='<td>'+value.id+'</td>'
+            		employee_data +='<td>'+value.fullname+'</td>'
+            		employee_data +='<td>'+value.username+'</td>'
+            		employee_data +='<td>'+value.password+'</td>'
+            		employee_data +='<td>'+value.course+'</td>'
+            		employee_data +='<td>'+value.branch+'</td>'
+            		employee_data +='<td>'+value.role+'</td>'
+            		employee_data +='</tr>';
+
+            	});
+
+            	$('#employee_table').append(employee_data);
+              }  // success enf
+
+
+        });   // ajax end
+//    }); // On Click end
+});   // Doc end
+</script>
+
+
+</body>
+</html>
+
+
+
+ 	 	<!-- // $('#id').text(data.id);
+               //      $('#username').text(data.username);
+               //      $('#password').text(data.password);
+               //      $('#course').text(data.course);
+               //      $('#branch').text(data.branch);
+               //      $('#role').text(data.role);
+               //      $('.user-content').slideDown();
+
+
+                // if(data.status == 'ok'){
+                // 	$('#id').text(data.id);
+                //     $('#username').text(data.username);
+                //     $('#password').text(data.password);
+                //     $('#course').text(data.course);
+                //     $('#branch').text(data.branch);
+                //     $('#role').text(data.role);
+                //     $('.user-content').slideDown();
+                // }else{
+                //     $('.user-content').slideUp();
+                //     alert("User not found...");
+                // }  -->
